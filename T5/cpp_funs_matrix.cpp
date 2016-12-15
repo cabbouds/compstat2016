@@ -5,13 +5,11 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 
-NumericMatrix mvrnorm(int n, NumericVector mu, NumericMatrix sigma) {// aqui agregé la funcion que permite de simular una normal 3D
-  int ncols = sigma.ncol();                                         // no pregunté porque ! porque es una teoria en mathematica bastante difficil
+NumericMatrix mvrnorm(int n, NumericVector mu, NumericMatrix sigma) {// aqui agreg? la funcion que permite de simular una normal 3D
+  int ncols = sigma.ncol();                                         // no pregunt? porque ! porque es una teoria en mathematica bastante difficil
   arma::mat Y = arma::randn(n, ncols);                              // int n: es para saber cuanto resultado quiero por ejemplo si n=2 tenemos como resultado
   return wrap(arma::repmat(as<arma::vec>(mu), 1, n).t() + Y * arma::chol(as<arma::mat>(sigma)));//una matriz (2,3) donde cada columna es una simulacion para un vector
 }
-
-
 
 // [[Rcpp::export]]
 double logapriori_a(double a, double mean_a,double sd_a){
@@ -103,7 +101,7 @@ NumericMatrix run_mcmc(// aqui run_mcmc da un matrix y no un vector
 {
   int n_param = theta0.size();
   NumericMatrix sim(n_sim + 1, n_param); // aqui voy a guardar las simulaciones
-  NumericMatrix eta(1,n_param);//IMPORTANT utilizé la funcion que permite de simular la ley N3 ademas esta funcion da un resultado como 
+  NumericMatrix eta(1,n_param);//IMPORTANT utiliz? la funcion que permite de simular la ley N3 ademas esta funcion da un resultado como 
   sim(0,_)=theta0;             //un matriz (1,3) 
   double U;
   bool accepted;
@@ -113,10 +111,9 @@ NumericMatrix run_mcmc(// aqui run_mcmc da un matrix y no un vector
       eta=mvrnorm(1,sim(i-1,_),matrice_jump);// cuidado no tenemos utilizar sim(i,_) pero sim(i-1,_) porque al inicio tenemos unicamente sim(0,_)
       U = (runif(1))[0];
       
-      
       accepted = (log(U) <= 
         log_POS(eta(0,_),X,Y, mean_a, sd_a, mean_b, sd_b, shape_sigma2, scale_sigma2) 
-                    - log_POS(sim(i-1,_),X,Y, mean_a, sd_a, mean_b, sd_b, shape_sigma2, scale_sigma2));
+                    - log_POS(sim(i-1,_),X,Y, mean_a, sd_a, mean_b, sd_b, shape_sigma2, scale_sigma2));//(sim(i-1,_)
     } while (!accepted);//or menor que max iter
     sim(i,_) = eta;
     

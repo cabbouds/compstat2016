@@ -2,10 +2,7 @@ t4_server <- function(input, output, session) {
   # load
   X <- data_wine$TotalPhenols
   Y <- data_wine$Flavanoids
-  global_mean_a0 <<-isolate(input$mean_a0)
-  #global_sd_a0 <<- input$sd_a0
-  #global_mean_b0 <<- input$mean_a0
-  #global_sd_b0 <<- input$sd_a0
+  #global_mean_a0 <<-isolate(input$mean_a0)
   
   #######################################################################  
   # tags$head(tags$script(src = "message-handler.js")),

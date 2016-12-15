@@ -15,11 +15,21 @@ T5_ui <- function(id){
             sliderInput(ns("sd_b0"),"sd_b0",-0.0001,max=20,value=1,step =.5),
             sliderInput(ns("shape0"),"gamma_shape0",min=0.0001,max=20,value=1,step =.5),
             sliderInput(ns("scale0"),"gamma_scale0",min=0.0001,max=20,value=1,step =.5)
-        )
-    ), #sidebar
-      
+            ,
+            selectInput(ns("Y"),"Y",
+                                 label = "Variable Y:",
+                                 choices = names(data_wine)),#,selected = "TotalPhenols"
+            selectInput(ns("X"),"X",
+                                 label = "Variable X:",
+                                 choices = names(data_wine))#,selected = "Flavanoids"
+            )#div
+        )#sidebar
+    , 
+  ###########################################################################    
       mainPanel(
         textOutput(ns("text1")),
+        tags$head(tags$script(src = "message-handler.js")),
+        actionButton(ns("do"), "Click Me"),
         ##############################################################
         
         fluidRow(

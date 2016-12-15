@@ -1,7 +1,12 @@
+library(ggplot2)
+library(plotly)
+
+data_wine <-read.csv("./wine.csv")
+Rcpp::sourceCpp("./T5/cpp_funs_matrix.cpp")
+
 # Tarea 5
 source("./T5/5_ui.R")
 source("./T5/5_server.R")
-Rcpp::sourceCpp("./T5/cpp_funs_matrix.cpp")
 
 # Tarea 4
 source("./T4/4_ui.R")
@@ -17,10 +22,7 @@ source("./T2/2_server.R")
 source("./T1/1_ui.R")
 source("./T1/1_server.R")
 
-data_wine <-read.csv("./wine.csv")
 
-library(ggplot2)
-library(plotly)
 
 #setwd("/home/camilo/0-MCD/3-Estad Com/")
 #getwd()
