@@ -7,15 +7,10 @@ t5_server <- function(input, output, session) {
   y <- data_wine$Flavanoids
   
   #######################################################################  
-  # tags$head(tags$script(src = "message-handler.js")),
-  # actionButton("do", "Click Me")
+  tags$head(tags$script(src = "message-handler.js")),
+  actionButton("do", "Click Me")
   #########################################################
-    # Filter data based on selections
-  output$table <- DT::renderDataTable(DT::datatable({
-    data_wine
-  }))
-    
-  #}
+ 
  ####################################################################### 
   
   # graf_load
@@ -29,11 +24,12 @@ t5_server <- function(input, output, session) {
   g_apriori<- exp(sapply(g_seq,logapriori_sigma2,input$shape0,input$scale0))
   plot_ly(x=g_seq,y=g_apriori, title= "testing")
   })
-  
+ 
   output$graf_a<-renderPlotly({
     a_seq <- seq(-10,10,0.5)
-    a_apriori<- exp(sapply(a_seq,logapriori_a,input$mean_a0,input$sd_a0))
-    plot_ly(x=a_seq,y=a_apriori)
+    aux_a <- isolate(global_mean_a0)
+    a_apriori<- exp(sapply(a_seq,logapriori_a,aux_a,input$sd_a0))#input$mean_a0
+    plot_ly(x=a_seq,y=a_apriori)  %>% layout(title = "alpha", aspectmode = 'cube')
   })
   
   output$graf_b<-renderPlotly({
@@ -62,6 +58,6 @@ t5_server <- function(input, output, session) {
   })
   
   #test
-  output$text1 <- renderText({"Hola mundo"})
+  output$text1 <- renderText({global_mean_a0})
   
 }

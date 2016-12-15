@@ -20,6 +20,7 @@ source("./T1/1_server.R")
 data_wine <-read.csv("./wine.csv")
 
 library(ggplot2)
+library(plotly)
 
 #setwd("/home/camilo/0-MCD/3-Estad Com/")
 #getwd()

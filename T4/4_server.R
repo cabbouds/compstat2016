@@ -1,10 +1,11 @@
-
 t4_server <- function(input, output, session) {
-  library(ggplot2)
   # load
- 
   X <- data_wine$TotalPhenols
   Y <- data_wine$Flavanoids
+  global_mean_a0 <<-isolate(input$mean_a0)
+  #global_sd_a0 <<- input$sd_a0
+  #global_mean_b0 <<- input$mean_a0
+  #global_sd_b0 <<- input$sd_a0
   
   #######################################################################  
   # tags$head(tags$script(src = "message-handler.js")),
@@ -21,11 +22,7 @@ t4_server <- function(input, output, session) {
            ) + geom_point() + xlab(input$X) + ylab(input$Y)
   })
   
-  ### Distribución apriors
-  
-  # graf_sigma_apriori
-  
-  
+  ### Distribucion apriors
   output$graf_a<-renderPlotly({
     a_seq <- seq(-10,10,0.5)
     a_apriori<- exp(sapply(a_seq,logapriori_a,input$mean_a0,input$sd_a0))

@@ -20,10 +20,6 @@ T5_ui <- function(id){
       
       mainPanel(
         textOutput(ns("text1")),
-        fluidRow(
-          column(DT::dataTableOutput(ns("table")),width = 12)
-        )
-        , #)
         ##############################################################
         
         fluidRow(
