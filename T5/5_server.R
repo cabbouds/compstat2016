@@ -10,7 +10,20 @@ t5_server <- function(input, output, session) {
     output$graf_b<-renderPlotly({
     
     matrice_jump  =0.01*matrix(c(2,0,0,0,1,0,0,0,1),nrow = 3,ncol=3,byrow = T)
-    res <-run_mcmc(10000,c(0,0,1),X,Y,matrice_jump,0,100,0,100,0.01,0.01)
+    #res <-run_mcmc(10000,c(0,0,1),X,Y,matrice_jump,0,100,0,100,0.01,0.01)
+    
+    res <-run_mcmc(n_sim = input$nsim,
+                   c(0,0,1),
+                   X,
+                   Y,
+                   matrice_jump,
+                   input$mean_a0,
+                   input$sd_a0,
+                   input$mean_b0,
+                   input$sd_b0,
+                   input$shape0,
+                   input$scale0)
+    
     df <- data.frame(res)
     
     a <- mean(res[,1])
@@ -27,18 +40,7 @@ t5_server <- function(input, output, session) {
     })#plot
   })#event
   
-    # res <<- run_mcmc(n_sim=10^input$nsim,
-    #                  theta0 = c(0,0,1),
-    #                  X=unname(unlist(data_wine[input$X])),
-    #                  Y=unname(unlist(data_wine[input$Y])),
-    #                  matrice_jump,
-    #                  #jump=0.05,
-    #                  mean_a = input$mean_a0,
-    #                  sd_a = input$sd_a0,
-    #                  mean_b = input$mean_b0,
-    #                  sd_b = input$sd_b0,
-    #                  shape_sigma2 = input$shape0,
-    #                  scale_sigma2 = input$scale0)
+    
     
     #return(pairs(res, labels = c("Alpha","Betha","Sigma")))
 
