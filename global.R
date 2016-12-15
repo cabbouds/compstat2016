@@ -24,5 +24,5 @@ source("./T1/1_server.R")
 
 
 
-#setwd("/home/camilo/0-MCD/3-Estad Com/")
+setwd("./")
 #getwd()
