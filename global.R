@@ -1,6 +1,6 @@
 library(ggplot2)
 library(plotly)
-
+setwd("./")
 data_wine <-read.csv("./wine.csv")
 Rcpp::sourceCpp("./T5/cpp_funs_matrix.cpp")
 
@@ -23,6 +23,3 @@ source("./T1/1_ui.R")
 source("./T1/1_server.R")
 
 
-
-setwd("./")
-#getwd()

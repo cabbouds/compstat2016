@@ -1,5 +1,6 @@
 #UTF-8
 T5_ui <- function(id){
+  data_wine <-read.csv("./wine.csv")
   ns <- NS(id)
   tagList(
     h4("Regresion Simple con MCMC"),
@@ -15,13 +16,13 @@ T5_ui <- function(id){
             sliderInput(ns("sd_b0"),"sd_b0",-0.0001,max=20,value=1,step =.5),
             sliderInput(ns("shape0"),"gamma_shape0",min=0.0001,max=20,value=1,step =.5),
             sliderInput(ns("scale0"),"gamma_scale0",min=0.0001,max=20,value=1,step =.5)
-            ,
-            selectInput(ns("Y"),"Y",
-                                 label = "Variable Y:",
-                                 choices = names(data_wine)),#,selected = "TotalPhenols"
-            selectInput(ns("X"),"X",
-                                 label = "Variable X:",
-                                 choices = names(data_wine))#,selected = "Flavanoids"
+            #,
+            # selectInput(ns("Y"),"Y",
+            #                      label = "Variable Y:",
+            #                      choices = names(data_wine)),#,selected = "TotalPhenols"
+            # selectInput(ns("X"),"X",
+            #                      label = "Variable X:",
+            #                      choices = names(data_wine),selected = "Flavanoids")#,selected = "Flavanoids"
             )#div
         )#sidebar
     , 

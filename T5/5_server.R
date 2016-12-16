@@ -11,7 +11,7 @@ t5_server <- function(input, output, session) {
     #res <-run_mcmc(10000,c(0,0,1),X,Y,matrice_jump,0,100,0,100,0.01,0.01)
     res <-run_mcmc(n_sim = input$nsim,
                    c(0,0,1),
-                   X,
+                   X,#unname(unlist(data_wine[input$X])),#
                    Y,
                    matrice_jump,
                    input$mean_a0,
@@ -26,16 +26,18 @@ t5_server <- function(input, output, session) {
     a <- mean(res[,1])
     b <- mean(res[,2])
     s <- mean(res[,3])
-    x.max <- max(unname(unlist(data_wine[input$X])))
-    x.min <- min(unname(unlist(data_wine[input$X])))
-    x <- seq(x.min,x.max,length.out = 100)
+    x.max <- max(X)#unname(unlist(data_wine[input$X]))
+    x.min <- min(X)#unname(unlist(data_wine[input$X]))
+    x <- seq(x.min,x.max,length.out = nrow(data_wine))
     y <- b*x+a
     
     ##### FIT
     output$graf_FIT<-renderPlotly({
       #fit_seq <- seq(-5,10,length.out = input$nsim)
-      plot_ly(x=X , y = Y, type = 'scatter') %>% layout(title = "Observaciones vs Ajuste") %>%
-        add_lines(x=x,y=y , name = 'trace 0',mode = 'lines')
+      plot_ly(x=X , y = Y, type = 'scatter', 
+              name = 'Observaciones') %>% 
+        layout(title = "Observaciones vs Ajuste") %>%
+        add_lines(x=x, y=y , name = 'Ajuste',mode = 'lines')
       })
 
     ### SIMUL PARAMETROS
